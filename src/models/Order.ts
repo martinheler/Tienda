@@ -1,6 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../config/database';
 import { Product } from './Product';  // ✅ Import Product Model
+import mongoose from "mongoose";
 
 interface OrderAttributes {
   id?: number;
@@ -19,6 +20,26 @@ export class Order extends Model<OrderAttributes> implements OrderAttributes {
   public createdAt!: Date;
   public updatedAt!: Date;
 }
+
+const OrderSchema = new mongoose.Schema({
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  product_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+    required: true,
+  },
+  total: {
+    type: Number,
+    required: true,
+  },
+}, { timestamps: true });
+
+const MongooseOrder = mongoose.model("Order", OrderSchema);
+export default MongooseOrder;
 
 Order.init(
   {

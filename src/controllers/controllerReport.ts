@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { getDailySalesData, getBestSellingProductData, getTopUsersData } from '../services/serviceReport';
 import { Order } from '../models/Order';  // ✅ Import Order
 import { Product } from '../models/Product'; // ✅ Import Product
-
+import mongoose from "mongoose";
 
 export const getDailySales = async (req: Request, res: Response): Promise<any> => {
   try {
@@ -51,7 +51,7 @@ export const getBestSellingProduct = async (req: Request, res: Response): Promis
       }
   
       const order = await Order.create({ user_id, product_id, total });
-  
+      console.log("Order created successfully:", order); // ✅ Log order
       res.status(201).json({ message: 'Pedido creado exitosamente', order });
     } catch (error) {
       console.error("Error in createOrder:", error);  // ✅ Log errors
@@ -69,7 +69,7 @@ export const getTopUsers = async (req: Request, res: Response): Promise<any> => 
     if (!users.length) {
       return res.status(404).json({ message: "No top users data available" });
     }
-
+    console.log("Top users response:", users); // ✅ Log response
     return res.status(200).json(users);
   } catch (error) {
     console.error("Error in getTopUsers:", error);

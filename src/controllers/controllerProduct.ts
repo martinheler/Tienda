@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Product } from '../models/Product';
+import mongoose from "mongoose";
 
 export const getProducts = async (req: Request, res: Response): Promise<any> => {
   const products = await Product.findAll();
@@ -9,14 +10,15 @@ export const getProducts = async (req: Request, res: Response): Promise<any> => 
 export const createProduct = async (req: Request, res: Response): Promise<any> => {
   try {
     const { name, stock, price } = req.body;
-
+    console.log("📌 Received Order Request:", req.body);
     // ✅ Validate product input
     if (!name || isNaN(stock) || isNaN(price) || stock <= 0 || price <= 0) {
+      console.error("❌ Invalid product data. Stock and price must be positive numbers.");
       return res.status(400).json({ message: "Invalid product data. Stock and price must be positive numbers." });
     }
 
     const product = await Product.create({ name, stock, price });
-
+    console.log("✅ Product created successfully:", product);
     return res.status(201).json({ message: "Product created successfully", product }); // ✅ Return 201 status
   } catch (error) {
     console.error("Error in createProduct:", error);

@@ -1,6 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../config/database';
 import { Order } from './Order';  // ✅ Import Order Model
+import mongoose from "mongoose";
 
 interface ProductAttributes {
   id?: number;
@@ -15,6 +16,25 @@ export class Product extends Model<ProductAttributes> implements ProductAttribut
   public stock!: number;
   public price!: number;
 }
+
+
+const ProductSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  stock: {
+    type: Number,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+}, { timestamps: true });
+
+const mongooseProduct = mongoose.model("Product", ProductSchema);
+export default mongooseProduct;
 
 Product.init(
   {
@@ -44,4 +64,3 @@ Product.init(
 
 // ✅ Define Relationship with Orders
 
-export default Product;

@@ -3,6 +3,7 @@ import { Order } from '../models/Order';
 import { User } from '../models/User';
 import { Product } from '../models/Product';
 
+
 export const createOrder = async (req: Request, res: Response): Promise<any> => {
   try {
     console.log("Received request body:", req.body); // ✅ Log request data

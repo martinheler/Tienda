@@ -9,8 +9,10 @@ import { getDailySalesData, getBestSellingProductData, getTopUsersData } from '.
 import { authenticateToken } from './middleware/middlewareAuth';
 import { errorHandler } from './middleware/middlewareError';
 import { config as dotenvConfig } from 'dotenv';
+import connectMongoDB from './config/mongo';
 
 dotenvConfig();
+connectMongoDB();
 
 export const app = express(); // ✅ Export app for Jest
 

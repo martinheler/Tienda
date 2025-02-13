@@ -3,7 +3,7 @@ import { Product } from '../models/Product';
 import { User } from '../models/User';
 import { Op, fn, col, literal } from 'sequelize';
 import { sequelize } from '../config/database'; // Asegúrate de importar la instancia de Sequelize
-
+import { Types } from "mongoose";
 
 
 
