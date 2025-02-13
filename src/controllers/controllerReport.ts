@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { getDailySalesData, getBestSellingProductData, getTopUsersData } from '../services/serviceReport';
 import { Order } from '../models/Order';  // ✅ Import Order
 import { Product } from '../models/Product'; // ✅ Import Product
-import mongoose from "mongoose";
+import { Log } from '../models/logs';
 
 export const getDailySales = async (req: Request, res: Response): Promise<any> => {
   try {

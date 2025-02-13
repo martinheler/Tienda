@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Product } from '../models/Product';
-import mongoose from "mongoose";
+import { Log } from '../models/logs';
 
 export const getProducts = async (req: Request, res: Response): Promise<any> => {
   const products = await Product.findAll();
@@ -18,6 +18,7 @@ export const createProduct = async (req: Request, res: Response): Promise<any> =
     }
 
     const product = await Product.create({ name, stock, price });
+    await Log.create({ action: "Producto creado", user: name });
     console.log("✅ Product created successfully:", product);
     return res.status(201).json({ message: "Product created successfully", product }); // ✅ Return 201 status
   } catch (error) {

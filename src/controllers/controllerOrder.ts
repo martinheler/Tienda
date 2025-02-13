@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Order } from '../models/Order';
 import { User } from '../models/User';
 import { Product } from '../models/Product';
+import { Log } from '../models/logs';
 
 
 export const createOrder = async (req: Request, res: Response): Promise<any> => {
@@ -46,6 +47,8 @@ export const createOrder = async (req: Request, res: Response): Promise<any> => 
     // ✅ Create Order
     const order = await Order.create({ user_id, product_id, total });
 
+    await Log.create({ action: "Pedido creado", user: user_id });
+    
     res.status(201).json({ message: 'Pedido creado exitosamente', order });
   } catch (error) {
     console.error("Error in createOrder:", error);

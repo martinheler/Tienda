@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { getDailySalesData, getBestSellingProductData, getTopUsersData } from '../services/serviceReport';
+import { Log } from '../models/logs';
 
 
 export const getDailySales = async (req: Request, res: Response): Promise<any> => {

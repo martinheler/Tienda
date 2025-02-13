@@ -3,6 +3,7 @@ import { User } from '../models/User';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { config as dotenvConfig } from 'dotenv';
+import { Log } from '../models/logs';
 
 
 dotenvConfig();
@@ -28,6 +29,7 @@ export const registerUser = async (req: Request, res: Response): Promise<any> =>
       orders_count: 0
     });
 
+    await Log.create({ action: "Usuario registrado", user: email });
     return res.status(201).json({ message: 'Usuario registrado exitosamente', user });
   } catch (error: any) {
     console.error("Error in registerUser:", error);
